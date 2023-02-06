@@ -29,6 +29,44 @@
       "netprofit": "$23.040 Billion",
       "employees": "63000",
       "id": 4
+    },
+    {
+      "companyLogo": null,
+      "company_name": "asfs",
+      "nationality": "asf",
+      "ownership": "asf",
+      "revenue": "asdf",
+      "netprofit": "asdf",
+      "employees": "asdf",
+      "id": 5
+    },
+    {
+      "company_name": "sfas",
+      "nationality": "asdf",
+      "ownership": "asdf",
+      "revenue": "asdf",
+      "netprofit": "asdf",
+      "employees": "asd",
+      "id": 6
+    },
+    {
+      "companyLogo": null,
+      "company_name": "",
+      "id": 7
+    },
+    {
+      "companyLogo": null,
+      "company_name": "sadfasdf",
+      "nationality": "asdfasdf",
+      "ownership": "asdfasfd",
+      "revenue": "asdfa",
+      "netprofit": "asdf",
+      "employees": "asdf",
+      "id": 8
+    },
+    {
+      "company_name": "",
+      "id": 9
     }
   ]
 }

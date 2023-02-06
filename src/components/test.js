@@ -1,57 +1,22 @@
 import React, { useState } from "react";
-// import { useForm } from "react-hook-form";
-import DataRender from "./DataRender";
-import axios from "axios";
 
 function Home() {
   const [companyData, setcompanyData] = useState({});
   const [companyLogo, setcompanyLogo] = useState();
 
-  
   const handleOnBlur = (e) => {
     const field = e.target.name;
     const value = e.target.value;
     const newData = { ...companyData, companyLogo };
     newData[field] = value;
     setcompanyData(newData);
-
-    // console.log(newData);
   };
 
   const onChangeHandler = (e) => {
-    setcompanyLogo(URL.createObjectURL(e.target.files[0]),()=>{
-      console.log(companyLogo);
-    });
+    setcompanyLogo(URL.createObjectURL(e.target.files[0]));
   };
-
-
-  // const onChangeHandler = async (e) => {
-  //   const data = e.target.files[0];
-  //   const currentDate = new Date();
-  //   const fileName = `IMAGE_${currentDate.getDate()}${currentDate.getMonth() + 1}${currentDate.getFullYear()}_${currentDate.getHours()}${currentDate.getMinutes()}${currentDate.getSeconds()}.jpg`
-
-  //   // setcompanyLogo(data.name);
-  //   // console.log(companyLogo);
-  //   const formData = new FormData();
-  //   formData.append('image',data);
-  //   setcompanyLogo({...companyData,fileName});
-  //   // console.log(formData.name);
-  //   console.log(companyLogo);
   
-
-  // //  if(companyLogo){
-  // //       const currentDate = new Date();
-  // //       const fileName = `IMAGE_${currentDate.getDate()}${currentDate.getMonth() + 1}${currentDate.getFullYear()}_${currentDate.getHours()}${currentDate.getMinutes()}${currentDate.getSeconds()}.jpg`
-  // //       const formData = new FormData();
-  // //       formData.append('image',companyLogo,fileName);
-  // //       try{
-  // //           await axios.post('/src/upload',formData);
-  // //       }catch(error){
-  // //           console.error(error);
-  // //       }
-  // //   }
-
-  // }
+ console.log(companyLogo);
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     fetch("http://127.0.0.1:3001/data", {
@@ -63,15 +28,13 @@ function Home() {
 
       .then((data) => {
         console.log(data);
-        // this.setState({ tdata: data });
       })
       .catch(console.log);
-    // console.log(companyData);
   };
   return (
-    <div className="ms-5 me-5 p-5">
-      <h1 className="text-info">Enter Company Data</h1>
-      <form onSubmit={handleRegisterSubmit} className="bg-info p-5">
+    <div className="m-5 p-5 bg-primary">
+      <h1>Enter Company Data</h1>
+      <form onSubmit={handleRegisterSubmit}>
         <div className="form-group mb-3">
           <input
             type="text"
@@ -80,7 +43,7 @@ function Home() {
             onBlur={handleOnBlur}
             required=""
             autofocus=""
-            className="form-control rounded-pill border-0 shadow-sm px-4 fs-5"
+            className="form-control rounded-pill border-0 shadow-sm px-4"
           />
         </div>
         <div className="form-group mb-3">
@@ -91,7 +54,7 @@ function Home() {
             onBlur={handleOnBlur}
             required=""
             autofocus=""
-            className="form-control rounded-pill border-0 shadow-sm px-4 fs-5"
+            className="form-control rounded-pill border-0 shadow-sm px-4"
           />
         </div>
         <div className="form-group mb-3">
@@ -101,7 +64,7 @@ function Home() {
             name="ownership"
             onBlur={handleOnBlur}
             required=""
-            className="form-control rounded-pill border-0 shadow-sm px-4 fs-5"
+            className="form-control rounded-pill border-0 shadow-sm px-4"
           />
         </div>
         <div className="form-group mb-3">
@@ -111,7 +74,7 @@ function Home() {
             name="revenue"
             onBlur={handleOnBlur}
             required=""
-            className="form-control rounded-pill border-0 shadow-sm px-4 fs-5"
+            className="form-control rounded-pill border-0 shadow-sm px-4"
           />
         </div>
         <div className="form-group mb-3">
@@ -121,7 +84,7 @@ function Home() {
             name="netprofit"
             onBlur={handleOnBlur}
             required=""
-            className="form-control rounded-pill border-0 shadow-sm px-4 fs-5"
+            className="form-control rounded-pill border-0 shadow-sm px-4"
           />
         </div>
         <div className="form-group mb-3">
@@ -131,17 +94,17 @@ function Home() {
             name="employees"
             onBlur={handleOnBlur}
             required=""
-            className="form-control rounded-pill border-0 shadow-sm px-4 fs-5"
+            className="form-control rounded-pill border-0 shadow-sm px-4"
           />
         </div>
-        <div className="col-md-4">
-          <label for="formFile" className="form-label ms-0 fs-4">
+        <div className="col-md-2">
+          <label for="formFile" className="form-label">
             Upload Image
           </label>
           <input
-            className="form-control fs-5"
+            className="form-control"
             accepts="image/*"
-            multiple
+            // multiple
             type="file"
             onChange={onChangeHandler}
             id="formFile"
@@ -150,13 +113,13 @@ function Home() {
         <input
           type="submit"
           value={"Submit"}
-          className="btn btn-warning fw-bold btn-block text-uppercase rounded-pill shadow-sm fs-5"
+          className="btn btn-warning fw-bold btn-block text-uppercase mb-2 rounded-pill shadow-sm"
         />
-        
       </form>
-    <br/><br/>
-        <h1 className="text-info">All Company Info</h1><br/>
-      <DataRender></DataRender>
+
+      <div className="h-100 w-100">
+        <img className="h-100 w-100" src={companyLogo} alt="img" />
+      </div>
     </div>
   );
 }
