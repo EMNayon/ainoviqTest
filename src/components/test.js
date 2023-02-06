@@ -1,127 +1,83 @@
-import React, { useState } from "react";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+// import db from "../../public/db.json";
+import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import EditForm from "./EditForm";
 
-function Home() {
-  const [companyData, setcompanyData] = useState({});
-  const [companyLogo, setcompanyLogo] = useState();
+function DataRender() {
+  const [companyDatas, setcompanyDatas] = useState([]);
 
-  const handleOnBlur = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
-    const newData = { ...companyData, companyLogo };
-    newData[field] = value;
-    setcompanyData(newData);
-  };
 
-  const onChangeHandler = (e) => {
-    setcompanyLogo(URL.createObjectURL(e.target.files[0]));
-  };
-  
- console.log(companyLogo);
-  const handleRegisterSubmit = (e) => {
-    e.preventDefault();
-    fetch("http://127.0.0.1:3001/data", {
-      method: "POST",
-      body: JSON.stringify(companyData),
-      headers: { "content-type": "application/json; charset=UTF-8" },
-    })
+  useEffect(() => {
+    console.log(companyDatas);
+
+    fetch("http://localhost:3001/info")
       .then((res) => res.json())
-
       .then((data) => {
-        console.log(data);
-      })
-      .catch(console.log);
-  };
-  return (
-    <div className="m-5 p-5 bg-primary">
-      <h1>Enter Company Data</h1>
-      <form onSubmit={handleRegisterSubmit}>
-        <div className="form-group mb-3">
-          <input
-            type="text"
-            placeholder="Company Name"
-            name="company_name"
-            onBlur={handleOnBlur}
-            required=""
-            autofocus=""
-            className="form-control rounded-pill border-0 shadow-sm px-4"
-          />
-        </div>
-        <div className="form-group mb-3">
-          <input
-            type="text"
-            placeholder="Enter Nationality"
-            name="nationality"
-            onBlur={handleOnBlur}
-            required=""
-            autofocus=""
-            className="form-control rounded-pill border-0 shadow-sm px-4"
-          />
-        </div>
-        <div className="form-group mb-3">
-          <input
-            type="text"
-            placeholder="Ownership"
-            name="ownership"
-            onBlur={handleOnBlur}
-            required=""
-            className="form-control rounded-pill border-0 shadow-sm px-4"
-          />
-        </div>
-        <div className="form-group mb-3">
-          <input
-            type="text"
-            placeholder="Revenue"
-            name="revenue"
-            onBlur={handleOnBlur}
-            required=""
-            className="form-control rounded-pill border-0 shadow-sm px-4"
-          />
-        </div>
-        <div className="form-group mb-3">
-          <input
-            type="text"
-            placeholder="Net Profit"
-            name="netprofit"
-            onBlur={handleOnBlur}
-            required=""
-            className="form-control rounded-pill border-0 shadow-sm px-4"
-          />
-        </div>
-        <div className="form-group mb-3">
-          <input
-            type="text"
-            placeholder="Employees Number"
-            name="employees"
-            onBlur={handleOnBlur}
-            required=""
-            className="form-control rounded-pill border-0 shadow-sm px-4"
-          />
-        </div>
-        <div className="col-md-2">
-          <label for="formFile" className="form-label">
-            Upload Image
-          </label>
-          <input
-            className="form-control"
-            accepts="image/*"
-            // multiple
-            type="file"
-            onChange={onChangeHandler}
-            id="formFile"
-          />
-        </div>
-        <input
-          type="submit"
-          value={"Submit"}
-          className="btn btn-warning fw-bold btn-block text-uppercase mb-2 rounded-pill shadow-sm"
-        />
-      </form>
+        setcompanyDatas(data);
+      });
+  }, []);
 
-      <div className="h-100 w-100">
-        <img className="h-100 w-100" src={companyLogo} alt="img" />
-      </div>
-    </div>
+  const handleDelete = (id) => {
+    console.log(id);
+    fetch(http://localhost:3001/info/${id}, {
+      method: "DELETE",
+    });
+  };
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  return (
+
+    <Row xs={1} md={3} className="g-4">
+      {companyDatas.map((companyData, index) => {
+        // console.log(companyData);
+        return (
+          <Col className="hover_card" key={index}>
+            <Card className="bg-warning hover_card">
+              <Card.Img variant="top 100px160" src={companyData.c1 + "base64," + companyData.c2} className="logo " />
+              <Card.Body>
+                <Card.Title>{companyData.company_name}</Card.Title>
+                <Card.Text>
+                  {companyData.revenue}
+                  <br></br>
+                  {companyData.netprofit}
+                </Card.Text>
+                <Button className="me-5" variant="outline-danger" onClick={() => handleDelete(companyData?.id)}>
+                  Delete
+                </Button>
+                <Button variant="outline-primary" onClick={handleShow}>
+                  Edit
+                </Button>
+
+                <div className="modal-dialog modal-dialog-centered">
+                  <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Update Company Data</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <EditForm id={companyData.id}></EditForm>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Close
+                      </Button>
+
+                    </Modal.Footer>
+                  </Modal>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        );
+      })}
+    </Row>
   );
 }
 
-export default Home;
+export default DataRender;

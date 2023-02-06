@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import EditForm from "./EditForm";
+// import "../style.css"
 
 function DataRender() {
   const [companyDatas, setcompanyDatas] = useState([]);
@@ -13,7 +14,9 @@ function DataRender() {
   useEffect(() => {
     fetch("http://localhost:3001/data")
       .then((res) => res.json())
-      .then((data) => setcompanyDatas(data));
+      .then((data) => {
+        setcompanyDatas(data)
+      });
   }, []);
 
   const handleDelete = (id) => {
@@ -30,17 +33,19 @@ function DataRender() {
   return (
         
       <Row xs={1} md={3} className="g-4">
-      {companyDatas.map((companyData) => {
+        {/* <img src={companyLogo} alt="img"/> */}
+      {companyDatas.map((companyData ,index) => {
         // console.log(companyData);
         return (
-          <Col className="hover_card">
-            <Card className="bg-warning hover_card">
-              <Card.Img variant="top" src={companyData.companyLogo} />
+          <Col className="hover_card" key={index}>
+            <Card className="bg-color border-info shadow p-3 mb-3 bg-body-tertiary rounded">
+              <Card.Img variant="top" src={companyData.c1 + "base64," + companyData.c2} className="logo" />
               <Card.Body>
                 <Card.Title>{companyData.company_name}</Card.Title>
                 <Card.Text>
                   {companyData.revenue}
                   <br></br>
+                  
                   {companyData.netprofit}
                 </Card.Text>
                 <Button className="me-5" variant="outline-danger" onClick={() => handleDelete(companyData?.id)}>
