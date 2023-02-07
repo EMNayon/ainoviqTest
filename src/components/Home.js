@@ -1,9 +1,7 @@
 
 import React, { useState } from "react";
 import CurrencyFormat from "react-currency-format";
-// import { useForm } from "react-hook-form";
 import DataRender from "./DataRender";
-// import axios from "axios";
 
 function Home() {
   const [companyData, setcompanyData] = useState({});
@@ -15,12 +13,9 @@ function Home() {
       [e.target.name]: e.target.value
     })
   };
-
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
-
     const uploadcompanyData = {...companyData};
-
     let reader = new FileReader();
     reader.readAsDataURL(companyLogo);
     reader.onload = function(){
@@ -37,18 +32,13 @@ function Home() {
       headers: { "content-type": "application/json"},
       body: JSON.stringify(companyData)
     })
-      // .then((res) => res.json())
-
       .then((data) => {
         console.log(data);
-        // this.setState({ tdata: data });
       })
     }
     reader.onerror = function() {
       console.log(reader.error);
     }
-      // .catch(console.log);
-    // console.log(companyData);
   };
   const onChangeHandler = (e) => {
     console.log(e.target.files);
