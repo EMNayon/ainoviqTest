@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import CurrencyFormat from "react-currency-format";
 // import { useForm } from "react-hook-form";
 import DataRender from "./DataRender";
 // import axios from "axios";
@@ -14,37 +15,6 @@ function Home() {
       [e.target.name]: e.target.value
     })
   };
-
- 
-
-  // const onChangeHandler = async (e) => {
-  //   const data = e.target.files[0];
-  //   const currentDate = new Date();
-  //   const fileName = `IMAGE_${currentDate.getDate()}${currentDate.getMonth() + 1}${currentDate.getFullYear()}_${currentDate.getHours()}${currentDate.getMinutes()}${currentDate.getSeconds()}.jpg`
-
-  //   // setcompanyLogo(data.name);
-  //   // console.log(companyLogo);
-  //   const formData = new FormData();
-  //   formData.append('image',fileName);
-  //   await axios.post('/src/upload',formData);
-  //   // setcompanyLogo({...companyData,fileName});
-  //   // console.log(formData.name);
-  //   // console.log(companyLogo);
-  // }
-
-  // //  if(companyLogo){
-  // //       const currentDate = new Date();
-  // //       const fileName = `IMAGE_${currentDate.getDate()}${currentDate.getMonth() + 1}${currentDate.getFullYear()}_${currentDate.getHours()}${currentDate.getMinutes()}${currentDate.getSeconds()}.jpg`
-  // //       const formData = new FormData();
-  // //       formData.append('image',companyLogo,fileName);
-  // //       try{
-  // //           await axios.post('/src/upload',formData);
-  // //       }catch(error){
-  // //           console.error(error);
-  // //       }
-  // //   }
-
-  // }
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
@@ -122,7 +92,10 @@ function Home() {
           />
         </div>
         <div className="form-group mb-3">
-          <input
+          <CurrencyFormat
+            thousandSeparator={true}
+            prefix={'$'}
+            decimalScale={'2'}
             type="text"
             placeholder="Revenue"
             name="revenue"
@@ -132,7 +105,10 @@ function Home() {
           />
         </div>
         <div className="form-group mb-3">
-          <input
+          <CurrencyFormat
+            thousandSeparator={true}
+            prefix={'$'}
+            decimalScale={'2'}
             type="text"
             placeholder="Net Profit"
             name="netprofit"
@@ -142,7 +118,8 @@ function Home() {
           />
         </div>
         <div className="form-group mb-3">
-          <input
+          <CurrencyFormat
+            thousandSeparator={true}
             type="text"
             placeholder="Employees Number"
             name="employees"

@@ -39,7 +39,7 @@ function DataRender() {
         return (
           <Col className="hover_card" key={index}>
             <Card className="bg-color border-info shadow p-3 mb-3 bg-body-tertiary rounded">
-              <Card.Img variant="top" src={companyData.c1 + "base64," + companyData.c2} className="logo" />
+              <Card.Img variant="top" src={companyData.c1 + "base64," + companyData.c2} className="logo" width={200} height={200} />
               <Card.Body>
                 <Card.Title>{companyData.company_name}</Card.Title>
                 <Card.Text>
