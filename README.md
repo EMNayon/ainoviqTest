@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Install Json Server under same project
+npm install -g json-server
+
+## Open Terminal / Command Prompt under public folder and write following commond 
+json-server --watch data.json --port 3001
+
 ## Available Scripts
 
 In the project directory, you can run:
